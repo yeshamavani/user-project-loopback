@@ -5,7 +5,6 @@ import * as jwt from 'jsonwebtoken';
 import {BinderKeys} from '../keys';
 import {Customer} from '../models/customer.model';
 import {CustomerRepository} from '../repositories/customer.repository';
-import {CustomerLogin} from '../services/customer-login';
 import {CustomerSignup} from '../services/customer-signup';
 import {credentials} from '../types';
 
@@ -16,8 +15,6 @@ export class CustomerSignupContoller {
     private customerRepository: CustomerRepository,
     @inject(BinderKeys.CUSTOMERSIGNUP)
     private signupService: CustomerSignup,
-    @inject(BinderKeys.CUSTOMERLOGIN)
-    private loginService: CustomerLogin
   ) { }
 
   @post('/customers/signup')
@@ -60,7 +57,7 @@ export class CustomerSignupContoller {
     @requestBody()
     cred: credentials): Promise<{token: string}> {
 
-    const foundUser = await this.loginService.authenticateUser(cred);
+    const foundUser = await this.signupService.authenticateCustomer(cred);
     const payload = cred.id.toString();
     const token = await jwt.sign(cred, '123asdf5', {
       expiresIn: '10h'

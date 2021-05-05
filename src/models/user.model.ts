@@ -1,15 +1,14 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {Customer} from './customer.model';
 
 @model()
 export class User extends Entity {
   @property({
     type: 'number',
-    id: true,
-    generated: false,
-    required: true,
+    generated: true,
+    required: false,
   })
-  uid: number;
+  uid?: number;
 
   @property({
     type: 'string',
@@ -33,6 +32,7 @@ export class User extends Entity {
   @property({
     type: 'string',
     required: true,
+    id: true,
     name: 'email'
   })
   email: string;
@@ -55,15 +55,24 @@ export class User extends Entity {
 
   @property({
     type: 'date',
-    name: 'createdon'
+    name: 'createdon',
+    default: new Date()
   })
   createdOn?: string;
 
   @property({
     type: 'date',
-    name: 'modifiedon'
+    name: 'modifiedon',
+    default: new Date()
   })
   modifiedOn?: string;
+
+  @property({
+    type: 'string',
+    name: 'password',
+    required: false
+  })
+  password?: string;
 
   @belongsTo(() => Customer)
   customerId: number;

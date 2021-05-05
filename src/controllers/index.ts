@@ -6,3 +6,4 @@ export * from './role.controller';
 export * from './user-customer.controller';
 export * from './user.controller';
 
+export * from './user-signup.controller';

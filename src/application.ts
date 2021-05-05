@@ -14,8 +14,8 @@ import {AllowedOriginProvider} from './middlewares/allowed-origin.middleware';
 import {LogginProvider} from './middlewares/logger.middleware';
 import {LoggerProvider} from './providers/logger.provider';
 import {MySequence} from './sequence';
-import {CustomerLogin} from './services/customer-login';
 import {CustomerSignup} from './services/customer-signup';
+import {UserSignup} from './services/user-signup';
 
 export {ApplicationConfig};
 
@@ -34,7 +34,7 @@ export class UserApplication extends BootMixin(
 
     this.bind(BinderKeys.LOGGER).toProvider(LoggerProvider);
     this.bind(BinderKeys.CUSTOMERSIGNUP).toClass(CustomerSignup);
-    this.bind(BinderKeys.CUSTOMERLOGIN).toClass(CustomerLogin);
+    this.bind(BinderKeys.USERSIGNUP).toClass(UserSignup);
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
