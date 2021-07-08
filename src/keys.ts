@@ -8,6 +8,6 @@ export namespace BinderKeys {
   export const LOGGER = BindingKey.create<ILogger>('winston.logger');
   export const CUSTOMERSIGNUP = BindingKey.create<ICustomerSignup>('customer.signup');
   export const USERSIGNUP = BindingKey.create<IUserSignup>('user.signup');
-
+  //export const MYUSERSERVICE = BindingKey.create<UserService<User, userCredentials>>('user.service');
 
 }

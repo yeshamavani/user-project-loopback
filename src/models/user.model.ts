@@ -5,35 +5,34 @@ import {Customer} from './customer.model';
 export class User extends Entity {
   @property({
     type: 'number',
+    id: true,
     generated: true,
-    required: false,
+    name: 'uid'
   })
   uid?: number;
 
   @property({
     type: 'string',
     required: true,
-    name: 'firstname'
+    name: 'firstname',
   })
   firstName: string;
 
   @property({
     type: 'string',
-    name: 'middlename'
+    name: 'middlename',
   })
   middleName?: string;
 
   @property({
     type: 'string',
-    name: 'lastname'
+    name: 'lastname',
   })
   lastName?: string;
 
   @property({
     type: 'string',
     required: true,
-    id: true,
-    name: 'email'
   })
   email: string;
 
@@ -56,21 +55,19 @@ export class User extends Entity {
   @property({
     type: 'date',
     name: 'createdon',
-    default: new Date()
+    default: new Date(),
   })
   createdOn?: string;
 
   @property({
     type: 'date',
     name: 'modifiedon',
-    default: new Date()
+    default: new Date(),
   })
   modifiedOn?: string;
 
   @property({
     type: 'string',
-    name: 'password',
-    required: false
   })
   password?: string;
 

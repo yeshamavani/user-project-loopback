@@ -1,5 +1,7 @@
+import {AuthenticationComponent} from '@loopback/authentication';
+import {JWTAuthenticationComponent, TokenServiceBindings} from '@loopback/authentication-jwt';
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig, createBindingFromClass} from '@loopback/core';
+import {ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
@@ -10,11 +12,10 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import {BinderKeys} from './keys';
-import {AllowedOriginProvider} from './middlewares/allowed-origin.middleware';
-import {LogginProvider} from './middlewares/logger.middleware';
 import {LoggerProvider} from './providers/logger.provider';
 import {MySequence} from './sequence';
 import {CustomerSignup} from './services/customer-signup';
+import {MyJWTService} from './services/jwt-service';
 import {UserSignup} from './services/user-signup';
 
 export {ApplicationConfig};
@@ -27,14 +28,20 @@ export class UserApplication extends BootMixin(
 
     // Set up the custom sequence
     this.sequence(MySequence);
-    this.add(createBindingFromClass(LogginProvider));
-    this.add(createBindingFromClass(AllowedOriginProvider));
+    //this.add(createBindingFromClass(LogginProvider));
+    //this.add(createBindingFromClass(AllowedOriginProvider));
 
     dotenv.config({path: '.env'});
 
     this.bind(BinderKeys.LOGGER).toProvider(LoggerProvider);
     this.bind(BinderKeys.CUSTOMERSIGNUP).toClass(CustomerSignup);
     this.bind(BinderKeys.USERSIGNUP).toClass(UserSignup);
+
+    this.component(AuthenticationComponent);
+    // Mount jwt component
+    this.component(JWTAuthenticationComponent);
+
+    this.bind(TokenServiceBindings.TOKEN_SERVICE).toClass(MyJWTService)
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));

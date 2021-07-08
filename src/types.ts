@@ -1,3 +1,5 @@
+import {UserProfile} from '@loopback/security';
+
 
 export type credentials = {
   id: number,
@@ -7,4 +9,11 @@ export type credentials = {
 export type userCredentials = {
   email: string,
   password: string
+}
+
+export interface MyUserProfile extends UserProfile {
+
+  role: string;
+  permissions: string[]
+
 }

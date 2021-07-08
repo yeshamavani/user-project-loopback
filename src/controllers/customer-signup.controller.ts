@@ -66,5 +66,4 @@ export class CustomerSignupContoller {
     return Promise.resolve({token});
   }
 
-
 }
